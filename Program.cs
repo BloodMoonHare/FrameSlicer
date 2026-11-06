@@ -7,12 +7,17 @@ using System.IO;
 class Program {
     static async Task Main() { 
         Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.BelowNormal;
+
+        if(!Directory.Exists("FramesOfVideos"))
+            Directory.CreateDirectory("FramesOfVideo");
+
         if (OperatingSystem.IsWindows())
             GlobalFFOptions.Configure(new FFOptions { BinaryFolder = @"C:\ffmpeg\bin" });
         else if (OperatingSystem.IsMacOS())
             GlobalFFOptions.Configure(new FFOptions { BinaryFolder = "/opt/homebrew/bin" });
         else
             GlobalFFOptions.Configure(new FFOptions { BinaryFolder = "/usr/bin" });
+            
         ColorWriteLine("<<FrameSlicer>>", ConsoleColor.DarkCyan);
         System.Console.WriteLine("~Beta\n");
         string? pathToVideo = null;
